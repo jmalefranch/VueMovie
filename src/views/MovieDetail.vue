@@ -1,34 +1,34 @@
 <template>
-    <div class="movie-detail">
-        <h2>{{movie.Title}}</h2>
-        <p>{{movie.Year}}</p>
-        <img :src="movie.Poster" alt="Movie poster" class="featured-img"/>
-        <p>{{movie.Plot}}</p>
-    </div>
+  <div class="movie-detail">
+    <h2>{{movie.Title}}</h2>
+    <p>{{ movie.Year }}</p>
+    <img :src="movie.Poster" alt="Movie Poster" class="featured-img" />
+    <p>{{ movie.Plot }}</p>
+  </div>
 </template>
 
 <script>
-import {ref, onBeforeMount} from 'vue';
-import {useRoute} from 'vue-router';
+import { ref, onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
 import env from '@/env.js';
 
 export default {
-    setup () {
-        const movie = ref({});
-        const route = useRoute();
+  setup () {
+    const movie = ref({});
+    const route = useRoute();
 
-        onBeforeMount( () => {
-            fetch(`https://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`)
-            .then(response => response.json())
-            .then(data => {
-                movie.value = data;
-            });
-        });    
+    onBeforeMount(() => {
+      fetch(`https://www.omdbapi.com/?apikey=${env.apikey}&i=${route.params.id}&plot=full`)
+        .then(response => response.json())
+        .then(data => {
+          movie.value = data;          
+        });
+    });
 
-        return {
-            movie           
-        }        
-    }   
+    return {
+      movie
+    }
+  }
 }
 </script>
 
